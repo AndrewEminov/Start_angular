@@ -1,23 +1,27 @@
 import { Component, OnInit } from '@angular/core';
 import {Task} from "../../share/interfaces/task";
-import {MyMockTasks} from "../../share/mocks/mock-tasks";
-
+import {TaskService} from "../../share/services/task/task.service"
 @Component({
   selector: 'app-tasks',
   templateUrl: './tasks.component.html',
   styleUrls: ['./tasks.component.scss']
 })
 export class TasksComponent implements OnInit {
-  tasks = MyMockTasks;
+  tasks: Task[];
   currentTask: Task;
+
+  constructor(private taskService: TaskService) {}
 
   handelerSelectTask (task: Task): void {
     this.currentTask = task;
   }
 
-  constructor() { }
+  getHeroes(): void {
+    this.taskService.getHeroes().subscribe(tasks => this.tasks = tasks);
+  }
 
   ngOnInit(): void {
+    this.getHeroes();
   }
 
 }
