@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {Task} from "../../share/interfaces/task";
-import {MyMockTasks} from "../../share/mocks/mock-tasks";
+// import {MyMockTasks} from "../../share/mocks/mock-tasks";
 
 @Component({
   selector: 'app-tasks',
@@ -8,11 +8,18 @@ import {MyMockTasks} from "../../share/mocks/mock-tasks";
   styleUrls: ['./tasks.component.scss']
 })
 export class TasksComponent implements OnInit {
-  tasks = MyMockTasks;
-  currentTask: Task;
+  currentTask = {} as Task;
+  changeTask:Task;
 
-  handelerSelectTask (task: Task): void {
-    this.currentTask = task;
+  tasks: Task[] = [];
+
+  clickSelectTask (task: Task): void {
+    this.changeTask = task;
+  }
+
+  clickSaveTask(): void{
+    this.tasks.push(this.currentTask);
+    this.currentTask = {} as Task;
   }
 
   constructor() { }
